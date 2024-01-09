@@ -174,7 +174,7 @@ public class Home extends Fragment {
                 return;
 
             List<String> uidList = (List<String>) value.get("following");
-
+            uidList.add(user.getUid());
             if (uidList == null || uidList.isEmpty())
                 return;
 
@@ -273,7 +273,6 @@ public class Home extends Fragment {
 
             }
             storiesAdapter.notifyDataSetChanged();
-
         });
 
     }

@@ -60,17 +60,18 @@
 
             <Button
                 android:id="@+id/verify_btn"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
                 android:layout_alignEnd="@+id/view"
                 android:layout_alignBottom="@+id/descriptionET"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="345dp"
+                android:layout_marginStart="275dp"
                 android:layout_marginTop="216dp"
                 android:layout_marginEnd="14dp"
                 android:layout_marginBottom="8dp"
-                android:background="#B60F0F"/>
+                android:background="#B60F0F"
+                android:text="Xác nhận" />
 <!--                android:onClick="clickCheck" />-->
 
             <View

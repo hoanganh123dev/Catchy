@@ -99,18 +99,14 @@ public class Add extends Fragment {
 
     }
     private void clickListener() {
-//        if(verify_decription.containsOffensiveWords(descET.toString(),0.3,offensiveWords))
-//            check = true;
-//        else
-//            check = false;
-//        if(check=true){
             adapter.SendImage(picUri -> CropImage.activity(picUri)
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .setAspectRatio(4, 3)
                     .start(getContext(), Add.this));
 
             nextBtn.setOnClickListener(v -> {
-                if(0==0) {
+//                if(0==0) {
+                if(check==false){
                     FirebaseStorage storage = FirebaseStorage.getInstance();
                     final StorageReference storageReference = storage.getReference().child("Post Images/" + System.currentTimeMillis());
 
@@ -118,28 +114,29 @@ public class Add extends Fragment {
 
                     storageReference.putFile(imageUri)
                             .addOnCompleteListener(task -> {
-                                if (task.isSuccessful()) {
-
+                                dialog.dismiss();
+                                if (task.isSuccessful() && check == false) {
                                     storageReference.getDownloadUrl().addOnSuccessListener(uri -> uploadData(uri.toString()));
-
                                 } else {
-                                    dialog.dismiss();
                                     Toast.makeText(getContext(), "Failed to upload post", Toast.LENGTH_SHORT).show();
                                 }
-                            });
+                                });
                 }else
                     Toast.makeText(getContext(), "bài đăng chứa nộ dụng nhạy cảm", Toast.LENGTH_SHORT).show();
             });
         }
-//    }
 
     private void uploadData(String imageURL) {
-
-        if(verify_decription.containsOffensiveWords(descET.toString(),0.3,offensiveWords))
-            check = false;
-        else
+        if(verify_decription.containsOffensiveWords(descET.getText().toString(),0.8,offensiveWords)==true) {
             check = true;
-        if(check==true){
+            // Display notification and prevent further action
+            Toast.makeText(getContext(), "Offensive language detected. Please modify your description.", Toast.LENGTH_SHORT).show();
+             // Stops execution of the remaining code
+        }
+        else{
+            check = false;
+        }
+        if(check==false){
         CollectionReference reference = FirebaseFirestore.getInstance().collection("Users")
                 .document(user.getUid()).collection("Post Images");
 

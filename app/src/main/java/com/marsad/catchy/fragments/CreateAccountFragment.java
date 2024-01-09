@@ -169,7 +169,8 @@ public class CreateAccountFragment extends Fragment {
 
         List<String> list = new ArrayList<>();
         List<String> list1 = new ArrayList<>();
-
+//        list.add(user.getUid());
+//        list1.add(user.getUid());
         Map<String, Object> map = new HashMap<>();
 
         map.put("name", name);

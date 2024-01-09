@@ -20,18 +20,17 @@ public class verify_decription {
         text = text.toLowerCase();
         text = replaceCharacterReplacements(text);
 
-        text = text.replace(".", " ").replace(",", " ");
+        text = text.replace(".", "").replace(",", "");
 
         String[] words = text.split("\\s+");
-
         for (int i = 0; i < words.length; i++) {
             String word = removeDuplicates(words[i]);
             if (offensiveWordsContains(word, sensitivity, offensiveWords)) return true;
 
-//            for (int j = i + 1; j < words.length; j++) {
-//                word += removeDuplicates(words[j]);
-//                if (offensiveWordsContains(word, sensitivity, offensiveWords)) return true;
-//            }
+            for (int j = i + 1; j < words.length; j++) {
+                word += removeDuplicates(words[j]);
+                if (offensiveWordsContains(word, sensitivity, offensiveWords)) return true;
+            }
         }
 
         return false;
@@ -47,19 +46,19 @@ public class verify_decription {
         return false;
     }
 
-    public  double getOffensiveWordPercentage(String text, String[] offensiveWords) {
-        text = text.toLowerCase();
-        text = replaceCharacterReplacements(text);
-        double percentage = 0.0;
-        for (String word : text.split(" ")) {
-            for (String offensiveWord : offensiveWords) {
-                double offensive = findSimilarity(word, offensiveWord);
-                percentage = percentage + offensive;
-            }
-        }
-        percentage = percentage / text.length();
-        return percentage;
-    }
+//    public  double getOffensiveWordPercentage(String text, String[] offensiveWords) {
+//        text = text.toLowerCase();
+//        text = replaceCharacterReplacements(text);
+//        double percentage = 0.0;
+//        for (String word : text.split(" ")) {
+//            for (String offensiveWord : offensiveWords) {
+//                double offensive = findSimilarity(word, offensiveWord);
+//                percentage = percentage + offensive;
+//            }
+//        }
+//        percentage = percentage / text.length();
+//        return percentage;
+//    }
 
     public static double findSimilarity(String comparedWord, String word) {
         if (comparedWord.equalsIgnoreCase(word)) return 1.0;
@@ -68,22 +67,22 @@ public class verify_decription {
         return 1.0;
     }
 
-    public static String replaceOffensiveWords(String message, String replacementBadWord, String replacementInvalidChar, double sensitivity, String... wordList) {
-        String filteredMessage = message;
-
-        filteredMessage = filteredMessage.replaceAll("[^a-zA-Z0-9?!%&/=:;öäüÖÄÜß\"$€´`'@(){}\\-_,.#*\\s]", replacementInvalidChar);
-
-        for (String word : filteredMessage.split(" ")) {
-            for (String offensiveWord : wordList) {
-                double offensive = findSimilarity(word.toLowerCase(), offensiveWord);
-                if (word.toLowerCase().equals(offensiveWord) || offensive > sensitivity) {
-                    String asterisks = new String(new char[word.length()]).replace("\0", replacementBadWord);
-                    filteredMessage = filteredMessage.replaceAll(word, asterisks);
-                }
-            }
-        }
-        return filteredMessage;
-    }
+//    public static String replaceOffensiveWords(String message, String replacementBadWord, String replacementInvalidChar, double sensitivity, String... wordList) {
+//        String filteredMessage = message;
+//
+//        filteredMessage = filteredMessage.replaceAll("[^a-zA-Z0-9?!%&/=:;öäüÖÄÜß\"$€´`'@(){}\\-_,.#*\\s]", replacementInvalidChar);
+//
+//        for (String word : filteredMessage.split(" ")) {
+//            for (String offensiveWord : wordList) {
+//                double offensive = findSimilarity(word.toLowerCase(), offensiveWord);
+//                if (word.toLowerCase().equals(offensiveWord) || offensive > sensitivity) {
+//                    String asterisks = new String(new char[word.length()]).replace("\0", replacementBadWord);
+//                    filteredMessage = filteredMessage.replaceAll(word, asterisks);
+//                }
+//            }
+//        }
+//        return filteredMessage;
+//    }
 
 
     private static int getLevenshteinDistance(String x, String y) {
